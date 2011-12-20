@@ -131,7 +131,7 @@ sub vcl_recv {
   }
 
   // always cache these urls
-  if (req.url ~ "/ting_search_carousel/results" || 
+  if (req.url ~ "/ting_search_carousel/results" ||
       req.url ~ "/office_hours/" ||
       req.url ~ "(/|q=)ting/search/js" ||
       req.url ~ "(/|q=)/ting/search/content/js" ||
@@ -164,8 +164,8 @@ sub vcl_recv {
       # cache the page. Pass it on to Apache directly.
       return (pass);
     }
-  }  
-  
+  }
+
 }
 
 # Routine used to determine the cache key if storing/retrieving a cached page.

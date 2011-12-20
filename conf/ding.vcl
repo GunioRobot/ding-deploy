@@ -36,7 +36,7 @@ sub vcl_recv {
     return (pass);
   }
 
-  // Skip the Varnish cache for install, update, and cron, 
+  // Skip the Varnish cache for install, update, and cron,
   // Also skip server-status, and some APC pages
   if (req.url ~ "install\.php|update\.php|cron\.php|server-status|apc_info\.php|apc_clear_cache\.php") {
     return (pass);
@@ -55,7 +55,7 @@ sub vcl_recv {
       remove req.http.Accept-Encoding;
     }
   }
-  
+
   // unset cookies for static files, and remove any dynamic ?123123213 timestamps
   if (req.url ~ "\.(css|html|js)") {
     unset req.http.cookie;
@@ -77,7 +77,7 @@ sub vcl_recv {
   }
 
   // always cache these urls
-  if (req.url ~ "/ting_search_carousel/results" || 
+  if (req.url ~ "/ting_search_carousel/results" ||
       req.url ~ "/office_hours/" ||
       req.url ~ "(/|q=)ting/search/js" ||
       req.url ~ "(/|q=)/ting/search/content/js" ||
@@ -103,14 +103,14 @@ sub vcl_recv {
   return(lookup);
 }
 
-sub vcl_fetch {  
-  
+sub vcl_fetch {
+
   # for debugging purposes
   # set obj.http.X-Varnish-Debug = req.url;
-  
+
   # Special handling for application specific AJAX callbacks
   if (req.url ~ "/ting/autocomplete" ||
-      req.url ~ "/ting_search_carousel/results" || 
+      req.url ~ "/ting_search_carousel/results" ||
       req.url ~ "/ting/search/" ||
       req.url ~ "/ting/availability/" ||
       req.url ~ "/office_hours/"
